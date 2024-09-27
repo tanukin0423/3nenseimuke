@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>就職活動 目標管理</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f7f7f7;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1, h2 {
+      text-align: center;
+    }
+
+    form {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    select, input, button {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: #24c53afd;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #15b300;
+    }
+
+    .progress-bar {
+      width: 100%;
+      background-color: #e0e0e0;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+
+    .progress {
+      height: 30px;
+      width: 0%;
+      background-color: #4caf50;
+      border-radius: 5px;
+      text-align: center;
+      color: white;
+      line-height: 30px;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    li {
+      background-color: #f0f0f0;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    li span {
+      font-weight: bold;
+    }
+
+    li button {
+      background-color: #ff4b5c;
+      border: none;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    li button:hover {
+      background-color: #e33d50;
+    }
+
+    #calendar {
+      margin-top: 20px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      padding: 10px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 10px;
+      border: 1px solid #ccc;
+      text-align: center;
+    }
+
+    th {
+      background-color: #f0f0f0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>就職活動 目標管理</h1>
+
+    <form id="task-form">
+      <label for="task">やることを選んでください:</label>
+      <select id="task">
+        <option value="">-- 選択してください --</option>
+        <option value="自己分析">自己分析</option>
+        <option value="企業研究">企業研究</option>
+        <option value="エントリーシート作成">エントリーシート作成</option>
+        <option value="面接練習">面接練習</option>
+        <option value="内定獲得">内定獲得</option>
+      </select>
+
+      <label for="task-detail">具体的なタスク内容を入力してください (任意):</label>
+      <input type="text" id="task-detail" placeholder="例: ABC会社の企業研究">
+
+      <label for="deadline">期日を選択してください:</label>
+      <input type="date" id="deadline" required>
+
+      <button type="submit">追加する</button>
+    </form>
+
+    <button id="download-plan">計画をダウンロード</button>
+    <input type="file" id="upload-plan" style="display:none">
+    <button id="upload-plan-button">以前作成したファイルを読み込む</button>
+
+    <h2>進捗状況</h2>
+    <div class="progress-bar">
+      <div id="progress" class="progress"></div>
+    </div>
+
+    <ul id="task-list">
+      <!-- タスクがここに表示される -->
+    </ul>
+
+    <h2>カレンダー表示</h2>
+    <div id="calendar">
+      <table>
+        <thead>
+          <tr>
+            <th>タスク</th>
+            <th>期日</th>
+          </tr>
+        </thead>
+        <tbody id="calendar-body">
+          <!-- カレンダー項目がここに表示される -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const taskForm = document.getElementById('task-form');
+      const taskList = document.getElementById('task-list');
+      const progressBar = document.getElementById('progress');
+      const calendarBody = document.getElementById('calendar-body');
+      const downloadButton = document.getElementById('download-plan');
+      const uploadInput = document.getElementById('upload-plan');
+      const uploadButton = document.getElementById('upload-plan-button');
+      let tasks = [];
+
+      // タスクを追加
+      taskForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const taskType = document.getElementById('task').value;
+        const taskDetail = document.getElementById('task-detail').value || "詳細なし";
+        const deadline = document.getElementById('deadline').value;
+
+        if (deadline) {
+          const taskText = taskType ? taskType + " - " + taskDetail : taskDetail;
+          tasks.push({ task: taskText, deadline: deadline });
+          updateTaskList();
+          updateProgress();
+          updateCalendar();
+          taskForm.reset();
+        }
+      });
+
+      // タスクリストを更新
+      function updateTaskList() {
+        taskList.innerHTML = '';
+        tasks.forEach((taskObj, index) => {
+          const li = document.createElement('li');
+          li.innerHTML = `
+            <span>${taskObj.task} (期日: ${taskObj.deadline})</span>
+            <button onclick="deleteTask(${index})">削除</button>
+          `;
+          taskList.appendChild(li);
+        });
+      }
+
+      // 進捗状況を更新
+      function updateProgress() {
+        const totalTasks = tasks.length;
+        const progressPercentage = totalTasks > 0 ? (totalTasks / 5) * 100 : 0;
+        progressBar.style.width = progressPercentage + '%';
+        progressBar.innerText = progressPercentage + '%';
+      }
+
+      // カレンダーを更新
+      function updateCalendar() {
+        calendarBody.innerHTML = '';
+        tasks.forEach(taskObj => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${taskObj.task}</td>
+            <td>${taskObj.deadline}</td>
+          `;
+          calendarBody.appendChild(tr);
+        });
+      }
+
+      // タスクを削除
+      window.deleteTask = function (index) {
+        tasks.splice(index, 1);
+        updateTaskList();
+        updateProgress();
+        updateCalendar();
+      };
+
+      // 計画をダウンロード
+      downloadButton.addEventListener('click', function () {
+        const blob = new Blob([JSON.stringify(tasks)], { type: 'application/json' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'plan.json';
+        link.click();
+      });
+
+      // 計画をアップロード
+      uploadButton.addEventListener('click', function () {
+        uploadInput.click();
+      });
+
+      uploadInput.addEventListener('change', function (event) {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          tasks = JSON.parse(e.target.result);
+          updateTaskList();
+          updateProgress();
+          updateCalendar();
+        };
+        reader.readAsText(file);
+      });
+    });
+  </script>
+</body>
+</html>

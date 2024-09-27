@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自己PRの書き方</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0 auto; /* 水平方向の中央揃え */
+            padding: 0;
+            background-color: #f4f4f4;
+            width: 800px; /* 幅を600pxに設定 */
+        }
+
+        .title {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .question {
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .answer {
+            width: 100%;
+            height: 100px;
+            margin-bottom: 10px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            resize: vertical;
+        }
+
+        .character-count {
+            font-size: 14px;
+            color: rgb(80, 10, 192);
+        }
+
+        .total-character-count {
+            margin-top: 10px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .button-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .display-button,
+        .save-button,
+        .clear-button {
+            margin: 5px;
+            padding: 10px 20px;
+            font-size: 14px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .display-button:hover,
+        .save-button:hover,
+        .clear-button:hover {
+            background-color: #45a049;
+        }
+
+        h3 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        /* pタグをh3に変更する */
+        p {
+            font-size: 18px;
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        /* 追加した部分 */
+        @media screen and (max-width: 600px) {
+            body {
+                width: auto; /* スマートフォンの場合は幅を自動調整 */
+            }
+            .question {
+                padding: 10px;
+            }
+            .answer {
+                height: 80px;
+            }
+        }
+    </style>
+</head>   
+    <body>
+        <div class="title">
+            <h1>自己PRの書き方</h1>
+        </div>
+
+
+<body>
+    <h1>自己PR・エントリーシートの書き方</h1>
+
+    <div class="question">
+        <h2>１・あなたの自己PRはどんな力ですか。</h2>
+        <p><span style="color: blue;">★自己ＰＲは、求められる人物像を意識して、応募職種で活かせる「仕事力」をアピールすると良い★</span></p>
+        <p>一言で、自己ＰＲは<span style="color: red;">〇〇力</span>ですという文章で表現すること。これには、キャリア支援課で配布している<span style="color: blue;">「社会人基礎力・表現ポイント」</span>を参考にすると良い。</p>
+        <p><span style="color: blue;">サンプル・大学のゼミナール活動で大切にしている<span style="color: red;">「戦略的思考力」</span>が強みです。</span></p>
+        <textarea class="answer" id="answer1" oninput="updateCharacterCount(this)"></textarea>
+        <div class="character-count">文字数: 0</div>
+    </div>
+
+    <div class="question">
+    <h2>２・その力を発揮している状況を、詳しく説明して書く。アルバイトや、勉強、スポーツ等を題材とする場合、状況を詳しく。</h2></p>
+    <p>また、取組んだ内容に対して、当初の様子（全く歯が経たなかった）等状況を書き、自分の課題が明らかになったように書くと良い。</p>
+    <p><span style="color: blue;">サンプル・私は大学での学業において、いかに学びを深められるかを考え取り組んできました。例えば、ゼミ活動するでは、日々のデータ収集や分析を欠かさず行い、定期的にミィ-ティングを行いました。また、大学の授業では、毎日の予習・復習を欠かさず行い、学習の積み重ねを図りました。</span></p>
+    <textarea class="answer" id="answer2" oninput="updateCharacterCount(this)"></textarea>
+    <div class="character-count">文字数: 0</div>
+  </div>
+
+  <div class="question">
+    <h2>３・PRポイントが必要となった時、その力を培うために、どこに課題があると考えましたか。</h2></p>
+    <p><span style="color: blue;">サンプル・学業では、短期間で成果を出すことが難しく、継続的な努力が求められます。そのため、私は継続力を高める必要があると感じました。中でもモチベーションの維持と時間管理が課題でした。</span></p>
+    <textarea class="answer" id="answer3" oninput="updateCharacterCount(this)"></textarea>
+    <div class="character-count">文字数: 0</div>
+  </div>
+
+  <div class="question">
+    <h2>４・そのことについて、自ら課題解決していくために、どのように主体的に考え、行動していきましたか。</h2></p>
+    <p><span style="color: blue;">サンプル</span></p>
+    <p><span style="color: red;">解決策1・具体的な目標を設定し、それを達成するためのスケジュールを立てやるべきことの共有を図った。</span></p
+    <p><span style="color: red;">解決策2・定期的な振り返りを行い、進捗状況や課題を確認しあい、お互いの参加意識をたかめた。</span></p>
+    <p><span style="color: red;">解決策3・効果的な時間管理のために、優先順位をつけてタスクをこなす方法を学びました。</span></p>
+    <textarea class="answer" id="answer4" oninput="updateCharacterCount(this)"></textarea>
+    <div class="character-count">文字数: 0</div>
+  </div>
+
+  <div class="question">
+    <h2>５・その行動によって、どのようにあなたのPRポイントが強化されていきましたか。</h2></p>
+    <p><span style="color: blue;">サンプル・周囲の仲間や教員からは、私の継続力と真摯な姿勢を高く評価されました。教授からは、プロジェクトへの取り組み姿勢と成果への貢献を評価され、リーダーシップの役割も担うようになりました。</span></p>
+    <textarea class="answer" id="answer5" oninput="updateCharacterCount(this)"></textarea>
+    <div class="character-count">文字数: 0</div>
+  </div>
+
+  <div class="question">
+    <h2>６・得た強みを、応募企業のどのような仕事で生かして（ここで、応募企業⇒特に職種についての理解が必須となる）、成果に結びつけ、活躍したいと考えていきたいですか。</h2></p>
+    <p><span style="color: blue;">サンプル・私は研究者としてのキャリアを追求したいと考えています。学業で培った継続力と自己管理能力は、研究の長期的なプロジェクトにおいて重要な要素となります。</span></p>
+    <p><span style="color: blue;">また、チーム内での調整や進捗管理においても役立ちます。自身の学びの積み重ねを通じて、学術界において新たな知見を生み出し、社会に貢献したいと思っています。</span></p>
+    <textarea class="answer" id="answer6" oninput="updateCharacterCount(this)"></textarea>
+    <div class="character-count">文字数: 0</div>
+  </div>
+  <!-- 他の質問項目 -->
+
+    <div class="total-character-count">合計文字数: 0</div>
+
+    <div class="button-container">
+        <button class="display-button" onclick="displayEntry()">回答を表示</button>
+        <button class="save-button" onclick="saveEntry()">保存</button>
+        <button class="clear-button" onclick="clearEntry()">回答をクリア</button>
+    </div>
+
+    <script>
+        function updateCharacterCount(textarea) {
+            var characterCount = textarea.value.length;
+            var characterCountElement = textarea.parentElement.querySelector('.character-count');
+            characterCountElement.textContent = '文字数: ' + characterCount;
+
+            updateTotalCharacterCount();
+        }
+
+        function updateTotalCharacterCount() {
+            var totalCharacterCount = 0;
+            var characterCountElements = document.getElementsByClassName('character-count');
+
+            for (var i = 0; i < characterCountElements.length; i++) {
+                var characterCountText = characterCountElements[i].textContent;
+                var characterCount = parseInt(characterCountText.split(': ')[1]);
+                totalCharacterCount += characterCount;
+            }
+
+            var totalCharacterCountElement = document.querySelector('.total-character-count');
+            totalCharacterCountElement.textContent = '合計文字数: ' + totalCharacterCount;
+        }
+
+        function displayEntry() {
+            var answers = document.getElementsByClassName('answer');
+            var displayText = '';
+
+            for (var i = 0; i < answers.length; i++) {
+                var question = i + 1;
+                var answer = answers[i].value;
+                var characterCount = answer.length;
+                displayText += '質問' + question + 'の回答:\n' + answer + '\n文字数: ' + characterCount + '\n\n';
+            }
+
+            var totalCharacterCount = document.querySelector('.total-character-count').textContent;
+            displayText += '合計文字数: ' + totalCharacterCount + '\n';
+
+            alert(displayText);
+        }
+
+        function saveEntry() {
+            var answers = document.getElementsByClassName('answer');
+            var entryText = '';
+
+            for (var i = 0; i < answers.length; i++) {
+                var question = i + 1;
+                var answer = answers[i].value;
+                var characterCount = answer.length;
+                entryText += '質問' + question + 'の回答:\n' + answer + '\n文字数: ' + characterCount + '\n\n';
+            }
+
+            var totalCharacterCount = document.querySelector('.total-character-count').textContent;
+            entryText += '合計文字数: ' + totalCharacterCount + '\n';
+
+            var element = document.createElement('a');
+            element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(entryText));
+            element.setAttribute('download', '自己ＰＲ.txt');
+            element.style.display = 'none';
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
+        }
+
+        function clearEntry() {
+            var answers = document.getElementsByClassName('answer');
+
+            for (var i = 0; i < answers.length; i++) {
+                answers[i].value = '';
+                updateCharacterCount(answers[i]);
+            }
+
+            var totalCharacterCountElement = document.querySelector('.total-character-count');
+            totalCharacterCountElement.textContent = '合計文字数: 0';
+        }
+    </script>
+</body>
+
+</html>

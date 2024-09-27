@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Career Navigator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Helvetica Neue', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        nav {
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 20px auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            grid-gap: 20px;
+            max-width: 800px;
+        }
+
+        nav ul li a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            background-color: #fff;
+            color: #333;
+            text-decoration: none;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            background-color: #4CAF50;
+            color: #fff;
+            transform: translateY(-5px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        nav ul li a i {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        /* 各アイコンに対する色を定義 */
+        .icon-job { color :#3F51B5}
+        .icon-office { color: #FF9800; }
+        .icon-sales { color: #2196F3; }
+        .icon-it { color: #9C27B0; }
+        .icon-finance { color: #3F51B5; }
+        .icon-medical { color: #F44336; }
+        .icon-care { color: #009688; }
+        .icon-construction { color: #FFC107; }
+        .icon-b2b { color: #607D8B; }
+        .icon-b2c { color: #FF5722; }
+
+        #content {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        #content h2 {
+            margin-top: 0;
+        }
+
+        #content p {
+            line-height: 1.5;
+        }
+
+        #content a {
+            display: inline-block;
+            background-color: #4CAF50;
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+        }
+
+        #content a:hover {
+            background-color: #45a049;
+        }
+
+        @media (min-width: 800px) {
+            #content {
+                width: 800px;
+            }
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>My Career Navigator</h1>
+</header>
+
+<nav>
+    <ul>
+        <li><a onclick="showContent('job')"><i class="fas fa-file-alt icon-job"></i>個人での利用</a></li>
+        <li><a onclick="showContent('office')"><i class="fas fa-file-alt icon-office"></i>事務の仕事</a></li>
+        <li><a onclick="showContent('sales')"><i class="fas fa-briefcase icon-sales"></i>営業の仕事</a></li>
+        <li><a onclick="showContent('it')"><i class="fas fa-laptop-code icon-it"></i>IT業界の仕事</a></li>
+        <li><a onclick="showContent('finance')"><i class="fas fa-chart-line icon-finance"></i>金融の仕事</a></li>
+        <li><a onclick="showContent('medical')"><i class="fas fa-user-md icon-medical"></i>医療・看護の仕事</a></li>
+        <li><a onclick="showContent('care')"><i class="fas fa-hands-helping icon-care"></i>介護の仕事</a></li>
+        <li><a onclick="showContent('construction')"><i class="fas fa-hard-hat icon-construction"></i>土木・建築の仕事</a></li>
+        <li><a onclick="showContent('b2b')"><i class="fas fa-building icon-b2b"></i>B to Bの仕事</a></li>
+        <li><a onclick="showContent('b2c')"><i class="fas fa-store icon-b2c"></i>B to Cの仕事</a></li>
+    </ul>
+</nav>
+
+<div id="content"></div>
+
+<script>
+    function showContent(id) {
+        const contentDiv = document.getElementById('content');
+        const contents = {
+            job: `
+                <h2>仕事全般を知る</h2>
+                <p>仕事全般を知ることができるo-NETというサイトで仕事を研究することができます。</p>
+                <a href="https://shigoto.mhlw.go.jp/User/PersonalUse/" target="_blank">職業研究ナビ</a>
+            `,
+            office: `
+                <h2>事務の仕事</h2>
+                <p>事務の仕事には、データ入力、資料作成、電話対応など様々な業務があります。コミュニケーション能力と几帳面さが求められます。</p>
+                <a href="https://shigoto.mhlw.go.jp/User/OfficeOccupations/" target="_blank">事務職の仕事内容と給与・将来性</a>
+            `,
+            sales: `
+                <h2>営業の仕事</h2>
+                <p>営業の仕事は、企業の製品やサービスを顧客に提案し、売り上げを伸ばすことが主な役割です。プレゼンテーション力と折衝力が必要不可欠です。</p>
+                <a href="https://shigoto.mhlw.go.jp/User/SaleOccupations/" target="_blank">営業職の仕事内容と給与・将来性</a>
+            `,
+            it: `
+                <h2>IT業界の仕事</h2>
+                <p>IT業界では、システム開発、プログラミング、ネットワーク管理など、様々な職種があります。問題解決力と継続的な学習意欲が求められます。</p>
+                <a href="https://shigoto.mhlw.go.jp/User/ITOccupations/" target="_blank">IT関連職の仕事内容と給与・将来性</a>
+            `,
+            finance: `
+                <h2>金融の仕事</h2>
+                <p>金融業界では、銀行や証券会社などで、資産運用や投資、融資などの業務に携わります。数学的素養と正確性が重視されます。</p>
+                <a href="https://shigoto.mhlw.go.jp/User/FinancialOccupations/" target="_blank">金融関連職の仕事内容と給与・将来性</a>
+            `,
+            medical: `
+                <h2>医療・看護に関わる仕事</h2>
+                <p>医師、看護師、薬剤師など、病院や介護施設で患者さんの健康を守る仕事です。専門知識と思いやりの心が必要です。</p>
+                <a href="https://shigoto.mhlw.go.jp/User/MedicalOccupations/" target="_blank">医療・介護関連職の仕事内容と給与・将来性</a>
+            `,
+            care: `
+                <h2>介護に関わる仕事</h2>
+                <p>高齢者や障がい者の生活支援を行う仕事です。介護技術だけでなく、コミュニケーション能力と気遣いの心が大切です。</p>
+                <a href="https://shigoto.mhlw.go.jp/User/OccupationsLongTermCare/" target="_blank">医療・介護関連職の仕事内容と給与・将来性</a>
+            `,       
+            construction: `
+                <h2>土木・建築に関わる仕事</h2>
+                <p>建設現場での作業監督や設計図面の作成、プロジェクト管理などを行う仕事です。技術的な知識と現場での経験が求められます。</p>
+                <a href="https://shigoto.mhlw.go.jp/User/ConstructionOccupations/" target="_blank">土木・建築関連職の仕事内容と給与・将来性</a>
+            `,
+            b2b: `
+                <h2>B to Bの仕事</h2>
+                <p>B to Bビジネスでは、企業間で製品やサービスを提供し、顧客のニーズに応じたソリューションを提案します。交渉力と市場理解が重要です。</p>
+                <a href="https://shigoto.mhlw.go.jp/User/B2BOccupations/" target="_blank">B to B関連職の仕事内容と給与・将来性</a>
+            `,
+            b2c: `
+                <h2>B to Cの仕事</h2>
+                <p>B to Cビジネスでは、一般消費者に製品やサービスを販売します。マーケティングや顧客サービスのスキルが求められます。</p>
+                <a href="https://shigoto.mhlw.go.jp/User/B2COccupations/" target="_blank">B to C関連職の仕事内容と給与・将来性</a>
+            `
+        };
+
+        contentDiv.innerHTML = contents[id] || '<h2>情報が見つかりません</h2>';
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>自己分析</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    h1, h2 {
+      color: #333;
+    }
+    .question {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+    .answer {
+      width: calc(100% - 40px);
+      max-width: 100%;
+      height: 100px;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin-bottom: 20px;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    #confirmation {
+      display: none;
+    }
+    .confirmation-text {
+      margin-bottom: 20px;
+    }
+    .confirmation-text strong {
+      color: #333;
+    }
+    .example {
+      background-color: #f2f2f2;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      padding: 10px;
+      margin-bottom: 20px;
+    }
+    .example p {
+      margin: 5px 0;
+    }
+  </style>
+
+</head>
+<body>
+  <div class="container">
+    <h1>長所・短所</h1>
+
+    <h2>長所</h2>
+    <div class="question">1. 自分の長所は何ですか？</div>
+    <textarea id="strengths" class="answer" maxlength="200" oninput="countCharacters('strengths')"></textarea>
+    <div id="strengthsCharCount">0 / 200</div>
+    <div class="example">
+      <p><strong>長所の一番目の例:</strong> 物おじしないところです。</p>
+      <p><strong>長所の二番目の例:</strong> じっくり物事を考えます</p>
+    </div>
+
+    <div class="question">2. その長所が具体的に発揮された事例を教えてください。</div>
+    <textarea id="strengthsExamples" class="answer" maxlength="200" oninput="countCharacters('strengthsExamples')"></textarea>
+    <div id="strengthsExamplesCharCount">0 / 200</div>
+
+    <div class="example">
+      <p><strong>長所の事例の書き方の例:</strong></p>
+      <p>例1: グループで何かを始める時に、周りの人たちのサポートをすることに、さほど躊躇せず、リーダーシップを発揮することが多いです。</p>
+      <p>例2: ものごとを掘り下げることが苦にならないので、複雑な事情を分析して、最適解を見出すことを心掛けています。</p>
+    </div>
+
+    <h2>短所</h2>
+    <div class="question">1. 自分の短所は何ですか？</div>
+    <textarea id="weaknesses" class="answer" maxlength="200" oninput="countCharacters('weaknesses')"></textarea>
+    <div id="weaknessesCharCount">0 / 200</div>
+    <div class="example">
+      <p><strong>短所の一番目の例:</strong> 予想以上に沢山のジョブが重なると戸惑うことがあります</p>
+      <p><strong>短所の二番目の例:</strong> 表現力に努力が必要なことです</p>
+    </div>
+
+    <div class="question">2. それを克服するためにどのような取り組みをしていますか？</div>
+    <textarea id="weaknessesApproach" class="answer" maxlength="200" oninput="countCharacters('weaknessesApproach')"></textarea>
+    <div id="weaknessesApproachCharCount">0 / 200</div>
+
+    <div class="example">
+      <p><strong>短所の克服策の書き方の例:</strong></p>
+      <p>例1: 予想以上のジョブが重なる場合は、優先順位をつけて着実に対応するよう心掛けています。</p>
+      <p>例2: 表現力向上のために、スピーチやプレゼンテーションの練習を積極的に行っています。</p>
+    </div>
+
+    <button onclick="showConfirmation()">回答の確認・確認ボタンを押すと保存ボタンが下方に現れます</button>
+
+    <div id="confirmation" style="display: none;">
+      <h2>回答の確認</h2>
+      <div class="confirmation-text"><strong>長所:</strong> <span id="strengthsConfirmation"></span></div>
+      <div class="confirmation-text"><strong>長所の文字数:</strong> <span id="strengthsCharCountConfirmation"></span></div>
+      <div class="confirmation-text"><strong>長所の事例:</strong> <span id="strengthsExamplesConfirmation"></span></div>
+      <div class="confirmation-text"><strong>長所の事例の文字数:</strong> <span id="strengthsExamplesCharCountConfirmation"></span></div>
+      <div class="confirmation-text"><strong>短所:</strong> <span id="weaknessesConfirmation"></span></div>
+      <div class="confirmation-text"><strong>短所の文字数:</strong> <span id="weaknessesCharCountConfirmation"></span></div>
+      <div class="confirmation-text"><strong>短所の克服策:</strong> <span id="weaknessesApproachConfirmation"></span></div>
+      <div class="confirmation-text"><strong>短所の克服策の文字数:</strong> <span id="weaknessesApproachCharCountConfirmation"></span></div>
+
+      <button onclick="saveResults()">保存</button>
+    </div>
+
+    <script>
+      function countCharacters(id) {
+        var element = document.getElementById(id);
+        var charCount = document.getElementById(id + 'CharCount');
+        charCount.textContent = element.value.length + ' / ' + element.maxLength;
+      }
+
+      function showConfirmation() {
+        var strengths = document.getElementById('strengths').value;
+        var strengthsExamples = document.getElementById('strengthsExamples').value;
+        var weaknesses = document.getElementById('weaknesses').value;
+        var weaknessesApproach = document.getElementById('weaknessesApproach').value;
+
+        document.getElementById('strengthsConfirmation').innerText = strengths;
+        document.getElementById('strengthsExamplesConfirmation').innerText = strengthsExamples;
+        document.getElementById('strengthsExamplesCharCountConfirmation').innerText = strengthsExamples.length + ' / 200';
+        document.getElementById('weaknessesConfirmation').innerText = weaknesses;
+        document.getElementById('weaknessesCharCountConfirmation').innerText = weaknesses.length + ' / 200';
+        document.getElementById('weaknessesApproachConfirmation').innerText = weaknessesApproach;
+        document.getElementById('weaknessesApproachCharCountConfirmation').innerText = weaknessesApproach.length + ' / 200';
+
+        document.getElementById('confirmation').style.display = 'block';
+      }
+
+      function saveResults() {
+        var strengths = document.getElementById('strengths').value;
+        var strengthsExamples = document.getElementById('strengthsExamples').value;
+        var weaknesses = document.getElementById('weaknesses').value;
+        var weaknessesApproach = document.getElementById('weaknessesApproach').value;
+
+        var data = '長所 (' + strengths.length + '文字):\n' + strengths + '\n\n長所の事例 (' + strengthsExamples.length + '文字):\n' + strengthsExamples + '\n\n短所 (' + weaknesses.length + '文字):\n' + weaknesses + '\n\n短所の克服策 (' + weaknessesApproach.length + '文字):\n' + weaknessesApproach;
+
+        var element = document.createElement('a');
+        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(data));
+        element.setAttribute('download', '自己分析結果.txt');
+        element.style.display = 'none';
+        document.body.appendChild(element);
+        element.click();
+        document.body.removeChild(element);
+      }
+    </script>
+  </div>
+</body>
+</html>

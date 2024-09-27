@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>自己PR作成サイト</title>
+<style>
+/* CSSスタイル */
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f4f4f4;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.question {
+  margin-bottom: 20px;
+}
+
+.question p {
+  margin-bottom: 10px;
+}
+
+.example {
+  font-style: italic;
+}
+
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: none;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.char-count {
+  margin: 0;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>自己PR作成</h1>
+  <form id="selfPRForm">
+    <label for="strengthSelect">強みを選択してください:</label>
+    <select id="strengthSelect">
+      <option value="problem-solving">問題解決能力</option>
+      <option value="leadership">リーダーシップ</option>
+      <option value="teamwork">チームワーク</option>
+      <option value="flexibility">柔軟性</option>
+      <option value="creativity">創造性</option>
+      <option value="adaptability">適応力</option>
+      <option value="analytical">分析力</option>
+      <option value="perseverance">継続力</option>
+      <option value="reliability">堅実性</option>
+    </select>
+    <div id="questionnaire"></div>
+    <div class="button-container">
+      <p class="char-count">合計文字数: 0</p>
+      <button type="button" id="saveButton">保存</button>
+    </div>
+  </form>
+</div>
+
+<script>
+// JavaScriptコード
+const questionnaireData = {
+  "problem-solving": [
+    { question: "強みをひとことであらわしてください。", example: "回答：問題解決があります。" },
+    { question: "強みをはっきりする状況を説明してください。", example: "回答：プロジェクトで発生した困難な課題を解決する際に、リーダーシップを発揮しました。" },
+    { question: "強みをはっきりする過程で見えてきた課題や困難、改善が必要となった状況を書いてください。", example: "回答：問題解決中に、情報の不足や意見の相違が課題となりました。" },
+    { question: "見えてきた課題に対して、どのような課題に気付き、主体的に改善行動をとったかを書いてください。", example: "回答：情報の不足を解消するために、チームメンバーとの定期的なミーティングを実施し、共有のプロセスを改善しました。" },
+    { question: "強みから得られた能力や力を書いてください。", example: "回答：問題解決能力を向上させ、柔軟性と分析力を養うことができました。" },
+    { question: "得た力をどのように実社会で活かしていくかの意気込みを書いてください。", example: "回答：将来は、問題解決のスキルを活かし、組織や社会に価値を提供するリーダーとなることを目指しています。" }
+  ],
+
+  "leadership": [
+    { question: "強みをひとことであらわしてください。", example: "回答：リーダーシップがあります。" },
+    { question: "強みをはっきりする状況を説明してください。", example: "回答：チームプロジェクトで、メンバーを指導し、共通の目標に向かって誘導しました。" },
+    { question: "強みをはっきりする過程で見えてきた課題や困難、改善が必要となった状況を書いてください。", example: "回答：異なる視点や意見の調整に苦労しました。" },
+    { question: "見えてきた課題に対して、どのような課題に気付き、主体的に改善行動をとったかを書いてください。", example: "回答：メンバーとのコミュニケーションを増やし、目標を共有するためのワークショップを開催しました。" },
+    { question: "強みから得られた能力や力を書いてください。", example: "回答：リーダーシップスキルを向上させ、チームビルディングとコミュニケーション能力を高めました。" },
+    { question: "得た力をどのように実社会で活かしていくかの意気込みを書いてください。", example: "回答：将来は、リーダーシップの力でチームを鼓舞し、共通の目標に向かって前進することを目指します。" }
+  ],
+
+  "teamwork": [
+    { question: "強みをひとことであらわしてください。", example: "回答：チームワークが得意です。" },
+    { question: "強みをはっきりする状況を説明してください。", example: "回答：チームプロジェクトで、効果的なコミュニケーションと協力を通じて目標を達成しました。" },
+    { question: "強みをはっきりする過程で見えてきた課題や困難、改善が必要となった状況を書いてください。", example: "回答：異なる意見や作業スタイルの調整が必要でした。" },
+    { question: "見えてきた課題に対して、どのような課題に気付き、主体的に改善行動をとったかを書いてください。", example: "回答：コミュニケーションを促進するために、定期的なチームミーティングを設定しました。" },
+    { question: "強みから得られた能力や力を書いてください。", example: "回答：チームビルディングのスキルを向上させ、効果的な協力とコラボレーションを実現しました。" },
+    { question: "得た力をどのように実社会で活かしていくかの意気込みを書いてください。", example: "回答：将来は、チームワークの力を活かし、チームメンバーと協力して組織の目標に向かって努力します。" }
+  ],
+
+  "creativity": [
+    { question: "強みをひとことであらわしてください。", example: "回答：創造性があります。" },
+    { question: "強みをはっきりする状況を説明してください。", example: "回答：独創的なアイデアや解決策を提案し、プロジェクトに新しい視点をもたらしました。" },
+    { question: "強みをはっきりする過程で見えてきた課題や困難、改善が必要となった状況を書いてください。", example: "回答：伝統的な解決策が適用されない問題に直面しました。" },
+    { question: "見えてきた課題に対して、どのような課題に気付き、主体的に改善行動をとったかを書いてください。", example: "回答：創造的なアプローチを採用し、新しいアイデアを生み出すためのワークショップを開催しました。" },
+    { question: "強みから得られた能力や力を書いてください。", example: "回答：創造性を通じて、新しい視点やアプローチを開発し、問題解決能力を向上させました。" },
+    { question: "得た力をどのように実社会で活かしていくかの意気込みを書いてください。", example: "回答：将来は、創造性を活かして革新的なソリューションを提供し、業界や社会に貢献します。" }
+  ],
+  "adaptability": [
+    { question: "強みをひとことであらわしてください。", example: "回答：適応力があります。" },
+    { question: "強みをはっきりする状況を説明してください。", example: "回答：環境や要件が変化する中で、柔軟に対応し、効果的な解決策を見つけました。" },
+    { question: "強みをはっきりする過程で見えてきた課題や困難、改善が必要となった状況を書いてください。", example: "回答：急速な変化や新しい技術の導入に対応する必要がありました。" },
+    { question: "見えてきた課題に対して、どのような課題に気付き、主体的に改善行動をとったかを書いてください。", example: "回答：状況に応じて戦略を調整し、迅速かつ効果的な行動を実施しました。" },
+    { question: "強みから得られた能力や力を書いてください。", example: "回答：適応力を高め、変化に対応し、新しい環境で成功する能力を獲得しました。" },
+    { question: "得た力をどのように実社会で活かしていくかの意気込みを書いてください。", example: "回答：将来は、適応力を活かし、変化する環境でのリーダーシップを発揮し、組織の成長を促進します。" }
+  ],
+  "analytical": [
+    { question: "強みをひとことであらわしてください。", example: "回答：分析力があります。" },
+    { question: "強みをはっきりする状況を説明してください。", example: "回答：複雑なデータや情報を解釈し、問題を分析して解決策を提供しました。" },
+    { question: "強みをはっきりする過程で見えてきた課題や困難、改善が必要となった状況を書いてください。", example: "回答：情報の断片化やデータの品質に関する問題に直面しました。" },
+    { question: "見えてきた課題に対して、どのような課題に気付き、主体的に改善行動をとったかを書いてください。", example: "回答：データの信頼性を向上させるために、品質管理プロセスを改善しました。" },
+    { question: "強みから得られた能力や力を書いてください。", example: "回答：分析力を高め、データを活用してより洞察力のある意思決定を行う能力を獲得しました。" },
+    { question: "得た力をどのように実社会で活かしていくかの意気込みを書いてください。", example: "回答：将来は、分析力を活かしてビジネス上の課題を解決し、組織の成果を最大化します。" }
+  ],
+  "perseverance": [
+    { question: "強みをひとことであらわしてください。", example: "回答：継続力があります。" },
+    { question: "強みをはっきりする状況を説明してください。", example: "回答：困難なプロジェクトや課題に取り組み、最後まで諦めずに努力しました。" },
+    { question: "強みをはっきりする過程で見えてきた課題や困難、改善が必要となった状況を書いてください。", example: "回答：時間的制約や予期せぬ障害に直面しました。" },
+    { question: "見えてきた課題に対して、どのような課題に気付き、主体的に改善行動をとったかを書いてください。", example: "回答：目標を再評価し、追加のサポートを求めるなどの対策を講じました。" },
+    { question: "強みから得られた能力や力を書いてください。", example: "回答：継続力を高め、困難に立ち向かうための粘り強さと意志を身につけました。" },
+    { question: "得た力をどのように実社会で活かしていくかの意気込みを書いてください。", example: "回答：将来は、継続力を活かして困難に打ち勝ち、目標の達成に向けて不断の努力を続けます。" }
+  ],
+  
+  "reliability": [
+  {"question": "強みをひとことであらわしてください。",example:"回答：堅実で責任感が強いところが、私の強みです。"},
+  {"question": "強みをはっきりする状況を説明してください。",example:"回答：レストランでのアルバイトで、時間に遅刻することなく、与えられた作業を確実にこなすことで、店長から信頼されるようになりました。自分の仕事に対する真面目な姿勢が評価されました。"},
+  {"question": "強みをはっきりする過程で見えてきた課題や困難、改善が必要となった状況を書いてください。",example:"回答：繁忙期には多くの注文を的確に処理する必要があり、ミスが起きないよう集中力が求められました。また、急な欠勤などで人手が足りない状況にも対応しなければなりませんでした。"},
+  {"question": "見えてきた課題に対して、どのような課題に気付き、主体的に改善行動をとったかを書いてください。",example:"回答：作業手順を整理し、ミス防止のためのチェックリストを作成しました。また、シフト調整などで人員の効率的な配置を提案し、人手不足への対策を行いました。"},
+  {"question": "強みから得られた能力や力を書いてください。",example:"回答：責任を持って仕事に取り組む力、業務の流れを体系立ててとらえる力、状況を冷静に判断する力を身につけることができました。"},
+  {"question": "得た力をどのように実社会で活かしていくかの意気込みを書いてください。",example:"回答：これらの力を発揮し、与えられた仕事にしっかりと取り組む姿勢で信頼を得ていきます。同時に柔軟性も身につけ、様々な課題に冷静に対処していく堅実な姿勢を持ち続けたいと思います。"}
+  ],
+
+  // 他の強みに関する質問とサンプルをここに追加
+};
+
+const strengthSelect = document.getElementById('strengthSelect');
+const questionnaire = document.getElementById('questionnaire');
+const totalCharCount = document.querySelector('.char-count');
+strengthSelect.addEventListener('change', (event) => {
+  const selectedStrength = event.target.value;
+  const selectedQuestions = questionnaireData[selectedStrength];
+  if (selectedQuestions) {
+    questionnaire.innerHTML = ''; // 質問とサンプルをクリア
+    let totalChars = 0; // totalCharsの初期値を0に変更
+    selectedQuestions.forEach(({ question, example }) => {
+      const questionDiv = document.createElement('div');
+      questionDiv.classList.add('question');
+      questionDiv.innerHTML = `
+        <p>${question}</p>
+        <p class="example">${example}</p>
+        <textarea rows="4" placeholder="回答を入力してください"></textarea>
+        <p>文字数: <span class="char-count">0</span></p>
+      `;
+      questionnaire.appendChild(questionDiv);
+      // totalChars += example.length; // この行をコメントアウト
+    });
+    totalCharCount.textContent = `合計文字数: ${totalChars}`;
+  }
+});
+
+// 文字数カウントと保存ボタンのクリックイベントを処理するコードはそのまま
+
+// 文字数カウントと保存ボタンのクリックイベントを処理するコードを追加
+document.getElementById('saveButton').addEventListener('click', function(event) {
+  event.preventDefault();
+  const textareas = document.querySelectorAll('textarea');
+  let textToSave = '';
+  let totalChars = 0;
+  textareas.forEach((textarea, index) => {
+    const charCount = textarea.value.length;
+    textToSave += `質問${index + 1}: ${textarea.previousElementSibling.previousElementSibling.textContent}\n`;
+    textToSave += `回答: ${textarea.value}\n\n`;
+    textToSave += `文字数: ${charCount}\n\n`; // 文字数の保存
+    totalChars += charCount;
+  });
+  textToSave += `合計文字数: ${totalChars}\n\n`; // 合計文字数を追加
+  
+  // ファイル保存
+  const blob = new Blob([textToSave], { type: 'text/plain' });
+  const url = window.URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'self_pr_responses.txt';
+  document.body.appendChild(a);
+  a.click();
+  window.URL.revokeObjectURL(url);
+  document.body.removeChild(a);
+});
+
+questionnaire.addEventListener('input', (event) => {
+  if (event.target.tagName === 'TEXTAREA') {
+    let totalChars = 0; // 合計文字数の初期化
+    const textareas = document.querySelectorAll('textarea');
+    
+    textareas.forEach(textarea => {
+      totalChars += textarea.value.length; // 各テキストエリアの文字数を加算
+    });
+    
+    totalCharCount.textContent = `合計文字数: ${totalChars}`; // 合計文字数の更新
+    const charCount = event.target.value.length;
+    event.target.nextElementSibling.querySelector('.char-count').textContent = charCount;
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>志望動機</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fefefe;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
+    h1, h2, h3 {
+      color: #2c3e50;
+    }
+    p {
+      color: #666;
+    }
+    .question {
+      width: 100%;
+      height: 100px;
+      margin-bottom: 10px;
+      padding: 10px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      resize: none;
+    }
+    .count {
+      font-size: 14px;
+      color: #666;
+    }
+    .display-button, .save-button {
+      width: 100%;
+      padding: 15px; /* ボタンの上下の余白を増やす */
+      font-size: 16px; /* ボタンの文字サイズを大きくする */
+      background-color: #2bbc62; /* 回答を表示ボタンの背景色 */
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin-bottom: 10px; /* ボタンの下の余白を追加 */
+    }
+    .display-button:hover, .save-button:hover {
+      background-color: #2980b9; /* マウスホバー時の背景色 */
+    }
+    #answerDisplay {
+      margin-top: 10px;
+      padding: 10px;
+      border: 2px solid #ccc;
+      border-radius: 5px;
+      background-color: #f2f4f6;
+    }
+    #totalCharacters {
+      color: #666;
+    }
+  </style>
+ <script>
+  function updateCharacterCount() {
+    var questions = document.getElementsByClassName('question');
+    var totalCharacters = 0;
+    for (var i = 0; i < questions.length; i++) {
+      var question = questions[i];
+      var countElement = document.getElementById('count-' + (i + 1));
+      countElement.textContent = question.value.length;
+      totalCharacters += question.value.length;
+    }
+    document.getElementById('totalCharacters').textContent = totalCharacters;
+  }
+
+  function displayAndSaveAnswers(action) {
+    var answers = '';
+    var totalCharacters = 0;
+    var questions = document.getElementsByClassName('question');
+    for (var i = 0; i < questions.length; i++) {
+      var answer = questions[i].value;
+      answers += 'Q' + (i + 1) + ': ' + answer + '\n';
+      totalCharacters += answer.length;
+    }
+    if (action === 'display') {
+      document.getElementById('answerDisplay').textContent = answers;
+    } else if (action === 'save') {
+      answers += '合計文字数: ' + totalCharacters + '\n';
+      var blob = new Blob([answers], { type: 'text/plain' });
+      var link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.download = 'answers.txt';
+      link.click();
+    }
+    document.getElementById('totalCharacters').textContent = totalCharacters;
+  }
+</script>
+
+</head>
+<body>
+  <div class="container">
+  <h1 style="text-align: center;">志望動機の作成のワークシート</h1>
+
+  <div>
+    <h2>Q1・その会社に興味をもった理由を書く。</h2>
+    <p>業界の中でも、その会社の特徴、やっていることを把握する。</p>
+    <h3><span style="color: rgba(0, 132, 255, 0.719);">業界動向ページを必ず見て、業界の役割や重要性を理解しておこう。</span><a href="https://gyokai-search.com/2nd-genre.htm">「参考」業界動向ページ</a></h3>
+    <h3>①私はＩＴ業界への強い関心と情熱を抱いています。理由は、今後の社会の進歩においてＩＴによる変革が不可欠であるという確信に基づいています。</h3>
+    <h3>②貴社では、ＩＴ業界の中でも、常に先端技術を追求し、ＡＩ導入をいち早く取り入れるなど革新的なソリューションを提供している点で、将来性を感じています。</h3>
+    <textarea class="question" rows="4" oninput="updateCharacterCount()"></textarea>
+    <span id="count-1" class="count">0</span>
+  </div>
+
+  <div>
+    <h2>Q2・なぜ応募の職種に興味を持ったかを書く。</h2>
+    <p>応募職種について、知りたい場合は、各種ナビサイトの先輩社員の様子から、仕事のやりがい等を読み取っていく。</p>
+    <h3><span style="color: rgba(0, 132, 255, 0.719);">職業研究については、サイトや、YOUTUBEの動画で検索すると、沢山の情報がでてくる。是非、研究してみて、興味が湧き、やりがいを感じるかを調べてみよう。</span></h3>
+    <h3>①私はＳｉｅｒ（システムインテグレーター）という職種に、自ら意志決定し主体的に仕事に取り組める点で興味を持っており、将来は、その仕事に就きたいと必要な力を身に付けてきました。</h3>
+    <h3>②大学１年より、プログラミングスキルを学びはじめ、試行錯誤しながらプログラム作成に関わり、一方では、ゼミ内にて、「プロジェクト達成」のためのコミュニケーション能力などを培ってきました。</h3>
+    <textarea class="question" rows="4" oninput="updateCharacterCount()"></textarea>
+    <span id="count-2" class="count">0</span>
+  </div>
+
+  <div>
+    <h2>Q3・応募の職種の仕事をしていく上で生かせるあなたの強みはどんな点ですか？</h2>
+    <p>自分が、応募している仕事で活かせそうな（その仕事で必要な能力要素を考える）強みと、過去の自分の具体的経験や背景を書くと、説得力がます。</p>
+    <h3>ゼミ活動では、一貫してプロジェクト達成のため、課題解決をしていくことにスポットをあて、現状分析を行い、あるべき解決の方向性をゼミ員で共有し、計画的に取り組んできました。</h3>
+    <textarea class="question" rows="4" oninput="updateCharacterCount()"></textarea>
+    <span id="count-3" class="count">0</span>
+  </div>
+
+  <div>
+    <h2>Q4・当社のビジョンやミッションに共感する理由はどんな点ですか？</h2>
+    <p>応募企業のホームページや、会社案内から、会社の理念を読み解く。また、代表者の話も必ず目をとおしておくこと。</p>
+    <h3>貴社では、「より良い世の中の創造」に力を入れ、貴社の技術力を使って〇〇の開発や、◇◇などのアプリを送り出す等社会課題に取り組み、持続可能な社会を目指している点に将来を託していける企業であると確信しています。</h3>
+    <textarea class="question" rows="4" oninput="updateCharacterCount()"></textarea>
+    <span id="count-4" class="count">0</span>
+  </div>
+
+  <div>
+    <h2>Q5・仕事は、一人で完結するものは殆どなく、社員同士お互いが助け合って成し遂げていくものである。</h2>
+    <p>従って、それらのことを踏まえて、どのように連携をとって活躍していこうと考えているのかを、「心構え」を書くこと。</p>
+    <h3>①私は子供の頃からスポーツを通じてチームワークを培ってきました。その際には、他のメンバーとの連携を通じて共同の目標を達成する喜びを経験してきました。</h3>
+    <h3>②貴社で仕事をしていくには、チームの協力や調整が不可欠であると受け止めています。スポーツで培ったチームワークの力を生かし、貴社でチームの一員として貢献し、共に成長していきたいと考えています。</h3>
+    <h3>是非とも、今度は、仕事を通してその目標を実現したいと志望いたしました。</h3>
+    <textarea class="question" rows="4" oninput="updateCharacterCount()"></textarea>
+    <span id="count-5" class="count">0</span>
+  </div>
+
+   <div class="button-container">
+    <button class="button display-button" onclick="displayAndSaveAnswers('display')" style="background-color: #2bbc62;">回答を表示</button><br>
+    <button class="button save-button" onclick="displayAndSaveAnswers('save')" style="background-color: #2980b9;">回答を保存</button>
+  </div>
+
+  <div>Total Characters: <span id="totalCharacters">0</span></div>
+
+  <div id="answerDisplay" class="answer"></div>
+  
+  <script>
+    var questions = document.getElementsByClassName('question');
+    for (var i = 0; i < questions.length; i++) {
+      questions[i].addEventListener('input', updateCharacterCount);
+    }
+  </script>
+</body>
+</html>

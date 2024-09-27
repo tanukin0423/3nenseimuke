@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- ビューポート設定 -->
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 10px auto; /* ページを中央に寄せる */
+            max-width: 800px; /* 幅を600pxに制限 */
+            padding-bottom: 100px; /* ボタンのためのスペースを確保 */
+            font-size: 14px; /* フォントサイズを調整 */
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .question {
+            margin-top: 20px;
+        }
+
+        .answer {
+            margin-bottom: 20px;
+            width: 100%; /* 幅を100%に設定 */
+            height: 100px;
+            border-radius: 8px; /* 角を丸める */
+            box-sizing: border-box; /* ボックスサイズを調整 */
+            padding: 10px; /* パディングを追加 */
+            resize: none; /* リサイズ禁止 */
+            font-size: inherit; /* 親要素のフォントサイズを継承 */
+        }
+
+        .sample-group {
+            background-color: #f5f0f0; /* サンプル文例の背景色を薄いグレーに変更 */
+            padding: 10px;
+            border-radius: 8px; /* 角を丸める */
+            margin-bottom: 10px; /* サンプル文例の間隔を狭める */
+        }
+
+        .sample-group h3 {
+            margin-top: 0; /* サンプル文例の上の余白をなくす */
+            line-height: 1.0; /* サンプル文例の行間を狭める */
+        }
+
+        #saveButton {
+            padding: 10px 20px;
+            font-size: 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            position: absolute; /* 絶対位置 */
+            bottom: 20px; /* 画面下部に配置 */
+            left: 50%; /* 画面中央に配置 */
+            transform: translateX(-50%); /* 水平方向に中央揃え */
+        }
+
+        #savedAnswers {
+            white-space: pre-line;
+            text-align: center; /* 中央揃え */
+            font-size: 14px; /* 全体の文字フォントをリサイズ */
+        }
+
+        .sample-text-1 {
+            color: brown;
+        }
+
+        .sample-text-2 {
+            color: navy;
+        }
+
+        .sample-text-3 {
+            color: green;
+        }
+
+        .save-button-container {
+            position: fixed; /* 固定位置 */
+            bottom: 0; /* 画面下部に配置 */
+            left: 0;
+            right: 0;
+            background-color: #f5f0f0;
+            padding: 20px;
+            text-align: center;
+        }
+    </style>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+</head>
+
+<body>
+    <h1>学生時代に力をいれたこと（学業・学業以外）エントリーシートの書き方</h1>
+
+    <div class="question">
+        <div class="sample-group">
+            <h2>1. 学生時代に力を入れたことは何ですか？回答は結論先行で簡潔に書く「⚪️⚪️で⚪️⚪️を目的に⚪️⚪️しました。」</h2>
+            <h3 class="sample-text-1">サンプル文例1: 大学の〇〇を目的とするゼミナール活動で◇◇することに力を入れました。</h3>
+            <h3 class="sample-text-2">サンプル文例2: 〇〇店のアルバイトで〇〇〇〇【例・お客様満足度向上】を目指して取り組みました。</h3>
+            <h3 class="sample-text-3">サンプル文例3: 高校時代、私はサッカー部のキャプテンとして、チームをまとめる役割を果たしました。</h3>
+        </div>
+        <textarea class="answer" oninput="countCharacters(this, document.getElementById('count1'))"></textarea>
+        <span id="count1">文字数: 0</span>
+    </div>
+
+
+
+    <div class="question">
+        <div class="sample-group">
+            <h2>2. その取り組みの背景や目的は何でしたか？</h2>
+            <h3 class="sample-text-1">サンプル文例1: 高齢化社会が進む日本において（〇〇地域において）、高齢者の方々に元気になっていただき、地域活性化に繋げるには、どのように取組んでいけばよいのかを目的としました。</h3>
+            <h3 class="sample-text-2">サンプル文例2: お客様の要望を的確に捉え、適切に対応し、お客様の満足度をアップすることです。</h3>
+            <h3 class="sample-text-3">サンプル文例3: 試合に勝つための１１人のチームワークの強化です。そして大会でベスト８を目指しました。</h3>
+        </div>
+        <textarea class="answer" oninput="countCharacters(this, document.getElementById('count2'))"></textarea>
+        <span id="count2">文字数: 0</span>
+    </div>
+
+    <div class="question">
+        <div class="sample-group">
+            <h2>3. 取組んだ過程（取組み始めた当初）で、どのような課題（困難・障害）が生じてきましたか。</h2>
+            <h3 class="sample-text-1">サンプル文例1: ゼミのメンバーの取組み姿勢が個々により温度差があり、さらに意見の相違が生じてしまいました。</h3>
+            <h3 class="sample-text-2">サンプル文例2: 接客の仕事は、始めてあったので、言葉使いから店内で、状況に合わせフットワーク良く対処することと商品知識を覚えることまで、盛り沢山さんの課題がありました。</h3>
+            <h3 class="sample-text-3">サンプル文例3: チーム内で、能力の差による分裂が生じていました。個々のスキルのレベルの差が誰の目から見てもハッキリとしていたため、これを何とか解決し、皆を纏めていく必要があると考えました。</h3>
+        </div>
+        <textarea class="answer" oninput="countCharacters(this, document.getElementById('count3'))"></textarea>
+        <span id="count3">文字数: 0</span>
+    </div>
+
+    <div class="question">
+        <div class="sample-group">
+            <h2>4. 上記の課題に対して、どの様に課題を捉え、それに対して主体的に考え、行動しましたか？</h2>
+            <h3 class="sample-text-1">サンプル文例1: 皆のゼミナール活動をすることの意義を一から考え直そうと働きかけ、毎回のゼミ活動で話合いの場を数多く設け「目的と総括」を共有していきました。</h3>
+            <h3 class="sample-text-2">サンプル文例2: 言葉使いと所作については、売り場で、成績の良い社員や先輩アルバイトの仕事の様子を研究し、家で一人ロープレを実施しました。商品については、パンフレットをノートに纏めて生き、商品知識を深めていきました。</h3>
+            <h3 class="sample-text-3">サンプル文例3: あまり上手でない仲間を集めて、レベルの向上を目指しました。そして、或る程度上手くなった段階で、スキルのある者とペアを組むようにしてさらなるレベルアップを目指していきました。</h3>
+        </div>
+        <textarea class="answer" oninput="countCharacters(this, document.getElementById('count4'))"></textarea>
+        <span id="count4">文字数: 0</span>
+    </div>
+
+    <div class="question">
+        <div class="sample-group">
+            <h2>5. その結果、どのように変化しましたか。また、学びがありましたか</h2>
+            <h3 class="sample-text-1">サンプル文例1: 毎回のゼミナールを欠席したり、開始時間に遅れるゼミ員が少なくなり、少しずつ話合いの場も活発な意見が出るようになり活性化していきました。</h3>
+            <h3 class="sample-text-2">サンプル文例2: 私自信、接客への恐怖心が薄れていき、笑顔でお客様と接することができるようになり、わざわざ私の所へ相談にきてくださるお客様も増えて、私自信のモチベションも上がりました。</h3>
+            <h3 class="sample-text-3">サンプル文例3: 部活帰りに、大きく二つに分かれて帰っていつた仲間たちが、一つになって帰るようになった。何よりも、練習も含めてお互いをフォローし合うようになりました。</h3>
+        </div>
+        <textarea class="answer" oninput="countCharacters(this, document.getElementById('count5'))"></textarea>
+        <span id="count5">文字数: 0</span>
+    </div>
+
+    <div class="question">
+        <div class="sample-group">
+            <h2>6. その経験が将来のキャリアにどのように役立つ、または、役立てていきたいと考えていますか？</h2>
+            <h3 class="sample-text-1">サンプル文例1:ゼミナール活動は、決して一人で出来るものでなく、培った個々を尊重するリーダーシップを仕事の上でも生かしていきたいと考えています。</h3>
+            <h3 class="sample-text-2">サンプル文例2:一つの仕事を成し遂げていくには、一つひとつの課題に対して、「どうすれば良いか」の考え方を意識し、解決行動がとれるようにしていきたいです。</h3>
+            <h3 class="sample-text-3">サンプル文例3:チームワークの大切さを痛感すると共に、仕事の上でも「ワンチーム」を常に心に秘め、チーム一丸となって取組んでいきたいです。</h3>
+        </div>
+        <textarea class="answer" oninput="countCharacters(this, document.getElementById('count6'))"></textarea>
+        <span id="count6">文字数: 0</span>
+    </div>
+
+    <div class="save-button-container">
+        <button id="saveButton" onclick="saveAnswers()">回答を表示しデータを保存する</button>
+    </div>
+
+    <p style="text-align: center;">作成は、自ら取り組んだ事実に基づくものを作成しましょう</p>
+    <h2 style="text-align: center;">保存された回答:</h2>
+    <pre id="savedAnswers"></pre>
+
+    <script>
+        function countCharacters(textarea, countElement) {
+            var characterCount = textarea.value.length;
+            countElement.innerHTML = "文字数: " + characterCount;
+        }
+
+        function saveAnswers() {
+            var answers = document.getElementsByClassName("answer");
+            var totalCharacterCount = 0;
+            var content = "";
+
+            for (var i = 0; i < answers.length; i++) {
+                var answer = answers[i].value;
+                var characterCount = answer.length;
+                totalCharacterCount += characterCount;
+                content += "質問" + (i + 1) + "の文字数: " + characterCount + "\n";
+                content += "回答: " + answer + "\n\n";
+            }
+
+            content += "全体の文字数: " + totalCharacterCount;
+
+            document.getElementById("savedAnswers").innerHTML = content;
+
+            // テキストファイルへの保存
+            var element = document.createElement('a');
+            element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(content));
+            element.setAttribute('download', 'answers.txt');
+            element.style.display = 'none';
+            document.body.appendChild(element);
+
+            if (typeof window.navigator.msSaveBlob === 'function') {
+                // Microsoft Edge, IE
+                var blob = new Blob([content], {
+                    type: 'text/plain;charset=utf-8'
+                });
+                window.navigator.msSaveBlob(blob, 'answers.txt');
+            } else {
+                // 他のブラウザー
+                element.click();
+            }
+
+            document.body.removeChild(element);
+        }
+    </script>
+</body>
+
+</html>
